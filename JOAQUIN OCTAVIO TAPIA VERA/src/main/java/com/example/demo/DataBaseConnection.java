@@ -6,9 +6,9 @@ import java.sql.DriverManager;
 
 public class DataBaseConnection {
     private static Connection connection;
-    private static final String URL = "jdbc:mysql://avnadmin:AVNS_l0YRyO-laQz0uaAmDF2@mysql-sisinfo2.d.aivencloud.com:11329/Registro?ssl-mode=REQUIRED";
-    private static final String USER = "avnadmin";
-    private static final String PASSWORD = "AVNS_l0YRyO-laQz0uaAmDF2";
+    private static final String URL = System.getenv("DB_URL");
+    private static final String USER = System.getenv("DB_USER");
+    private static final String PASSWORD = System.getenv("DB_PASSWORD");
 
     static {
         try {

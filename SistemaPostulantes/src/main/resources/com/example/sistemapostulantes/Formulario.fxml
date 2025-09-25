@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemapostulantes.HelloController"
+            prefWidth="400" prefHeight="300">
+
+    <Label layoutX="30" layoutY="20" text="Nombre:"/>
+    <TextField fx:id="nombreField" layoutX="150" layoutY="20" prefWidth="200"/>
+
+    <Label layoutX="30" layoutY="60" text="Correo:"/>
+    <TextField fx:id="correoField" layoutX="150" layoutY="60" prefWidth="200"/>
+
+    <Label layoutX="30" layoutY="100" text="Dirección:"/>
+    <TextField fx:id="direccionField" layoutX="150" layoutY="100" prefWidth="200"/>
+
+    <Label layoutX="30" layoutY="140" text="Teléfono:"/>
+    <TextField fx:id="telefonoField" layoutX="150" layoutY="140" prefWidth="200"/>
+
+    <Label layoutX="30" layoutY="180" text="Contraseña:"/>
+    <PasswordField fx:id="contrasenaField" layoutX="150" layoutY="180" prefWidth="200"/>
+
+    <Button layoutX="150" layoutY="220" text="Registrarse" onAction="#onRegisterButtonClick"/>
+</AnchorPane>
+
+
+
+
+

@@ -29,3 +29,15 @@ CREATE TABLE Postulacion (
     FOREIGN KEY (id_carrera) REFERENCES Carrera(id_carrera)
 );
 
+CREATE TABLE MetodosPago(
+    id_metodo INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_metodo VARCHAR(50)
+);
+
+CREATE TABLE Pago(
+    id_pago INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    id_metodo INT NOT NULL,
+    id_monto DECIMAL(7,2) NOT NULL,
+    fecha_pago DATE NOT NULL
+);

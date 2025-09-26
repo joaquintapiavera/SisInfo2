@@ -11,11 +11,11 @@
 
 <AnchorPane prefHeight="322.0" prefWidth="617.0" style="-fx-background-color: #2d3e50;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemapostulantes.controller.ControladorLogin">
 
-    <Label layoutX="71.0" layoutY="103.0" text="Correo:" textFill="WHITE">
+    <Label layoutX="71.0" layoutY="103.0" text="Carmet de Identidad:" textFill="WHITE">
         <font>
             <Font name="Arial Rounded MT Bold" size="13.0" />
         </font></Label>
-    <TextField fx:id="correoField" layoutX="71.0" layoutY="129.0" prefWidth="200" promptText="Ingresa tu correo">
+    <TextField fx:id="ci" layoutX="71.0" layoutY="129.0" prefWidth="200" promptText="Ingresa tu CI">
         <font>
             <Font name="Arial Rounded MT Bold" size="13.0" />
         </font></TextField>
@@ -24,12 +24,12 @@
         <font>
             <Font name="Arial Rounded MT Bold" size="13.0" />
         </font></Label>
-    <PasswordField fx:id="contrasenaField" layoutX="71.0" layoutY="195.0" prefWidth="200" promptText="Ingresa tu contraseña">
+    <PasswordField fx:id="contrasenia" layoutX="71.0" layoutY="195.0" prefWidth="200" promptText="Ingresa tu contraseña">
         <font>
             <Font name="Arial Rounded MT Bold" size="13.0" />
         </font></PasswordField>
 
-    <Button layoutX="119.0" layoutY="254.0" onAction="#iniciarSesion" style="-fx-background-color: #2a80b9;" text="Iniciar Sesión" textFill="WHITE">
+    <Button fx:id="botonInicioSesion" layoutX="119.0" layoutY="254.0" onAction="#iniciarSesion" style="-fx-background-color: #2a80b9;" text="Iniciar Sesión" textFill="WHITE">
         <font>
             <Font name="Arial Rounded MT Bold" size="13.0" />
         </font></Button>

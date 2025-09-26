@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="322.0" prefWidth="617.0" style="-fx-background-color: #2d3e50;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemapostulantes.HelloController">
+<AnchorPane prefHeight="322.0" prefWidth="617.0" style="-fx-background-color: #2d3e50;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemapostulantes.controller.ControladorLogin">
 
     <Label layoutX="71.0" layoutY="103.0" text="Correo:" textFill="WHITE">
         <font>
@@ -29,7 +29,7 @@
             <Font name="Arial Rounded MT Bold" size="13.0" />
         </font></PasswordField>
 
-    <Button layoutX="119.0" layoutY="254.0" onAction="#onRegisterButtonClick" style="-fx-background-color: #2a80b9;" text="Iniciar Sesión" textFill="WHITE">
+    <Button layoutX="119.0" layoutY="254.0" onAction="#iniciarSesion" style="-fx-background-color: #2a80b9;" text="Iniciar Sesión" textFill="WHITE">
         <font>
             <Font name="Arial Rounded MT Bold" size="13.0" />
         </font></Button>
@@ -45,7 +45,7 @@
                <Image url="@imagenes/login.jpg" />
             </image>
          </ImageView>
-         <Button layoutX="113.0" layoutY="259.0" onAction="#onRegisterButtonClick" style="-fx-background-color: #2d3e50;" text="Registrarse" textFill="WHITE">
+         <Button layoutX="113.0" layoutY="259.0" onAction="#cambiarVistaRegistro" style="-fx-background-color: #2d3e50;" text="Registrarse" textFill="WHITE">
             <font>
                <Font name="Arial Rounded MT Bold" size="13.0" />
             </font>

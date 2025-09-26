@@ -5,9 +5,16 @@ import com.example.sistemapostulantes.view.Vistas;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class ControladorMenu implements CambiadorVista {
+public class ControladorLogin implements CambiadorVista {
     @FXML
-    public void VistaRegistro(ActionEvent event) {
+    public void cambiarVistaRegistro(ActionEvent event) {
         cambiarVista(Vistas.VISTA_REGISTRO.getVista(), event);
     }
+
+    @FXML
+    public void iniciarSesion(ActionEvent event) {
+
+    }
+
+
 }

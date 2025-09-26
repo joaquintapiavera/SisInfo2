@@ -4,29 +4,31 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.Node;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
+import java.net.URL;
 
 public interface CambiadorVista {
 
-
     default void cambiarVista(String fxml, ActionEvent event) {
         FXMLLoader loader = loadFXML(fxml);
-        Parent root = getRoot(loader);
+        Parent root = loader.getRoot();
         Stage stage = getStage(event);
         setupSceneAndShow(stage, root);
     }
 
     default FXMLLoader loadFXML(String fxml) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sistemapostulantes/view/" + fxml));
+        String path = "/com/example/sistemapostulantes/" + fxml;
+        URL url = getClass().getResource(path);
+        if (url == null) throw new RuntimeException("FXML no encontrado: " + path);
+        FXMLLoader loader = new FXMLLoader(url);
         try {
             loader.load();
             return loader;
-        } catch (IOException exception) {
-            throw new RuntimeException("No FXML Found: " + fxml, exception);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -34,20 +36,12 @@ public interface CambiadorVista {
         return loader.getRoot();
     }
 
-    default void initializeController(FXMLLoader loader) {
-        Object controller = loader.getController();
-    }
-
     default Stage getStage(ActionEvent event) {
-        return (Stage) ((Button) event.getSource()).getScene().getWindow();
+        return (Stage) ((Node) event.getSource()).getScene().getWindow();
     }
 
     default void setupSceneAndShow(Stage stage, Parent root) {
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/styles/peg_scene.css").toExternalForm());
-        stage.setScene(scene);
-        stage.setWidth(650);
-        stage.setHeight(650);
+        stage.setScene(new Scene(root));
         stage.show();
     }
 }

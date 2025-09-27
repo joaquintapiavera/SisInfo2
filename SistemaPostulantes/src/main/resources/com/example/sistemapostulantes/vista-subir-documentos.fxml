@@ -5,79 +5,84 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="469.0" prefWidth="494.0" style="-fx-background-color: #2d3e50;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemapostulantes.controller.ControladorLogin">
-    <Button layoutX="21.0" layoutY="24.0" onAction="#cambiarVistaRegistro" style="-fx-background-color: #2d3e50;" text="HOME" textFill="WHITE">
+<AnchorPane prefHeight="469.0" prefWidth="494.0" style="-fx-background-color: #2d3e50;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sistemapostulantes.controller.ControladorSubirDocumentos">
+    <Button layoutX="21.0" layoutY="24.0" onAction="#cambiarVistaAHome" style="-fx-background-color: #2d3e50;" text="HOME" textFill="WHITE">
         <font>
             <Font name="Arial Rounded MT Bold" size="13.0" />
         </font>
     </Button>
-    <Button layoutX="403.0" layoutY="24.0" onAction="#cambiarVistaRegistro" style="-fx-background-color: #2d3e50;" text="LOGOUT" textFill="WHITE">
+    <Button layoutX="463.0" layoutY="24.0" onAction="#cerrarSesion" style="-fx-background-color: #2d3e50;" text="LOGOUT" textFill="WHITE">
         <font>
             <Font name="Arial Rounded MT Bold" size="13.0" />
         </font>
     </Button>
-    <Button layoutX="294.0" layoutY="24.0" onAction="#cambiarVistaRegistro" style="-fx-background-color: #2d3e50;" text="CARRERAS" textFill="WHITE">
+    <Button layoutX="271.0" layoutY="24.0" onAction="#verCarreras" style="-fx-background-color: #2d3e50;" text="CARRERAS" textFill="WHITE">
         <font>
             <Font name="Arial Rounded MT Bold" size="13.0" />
         </font>
     </Button>
-    <Button layoutX="146.0" layoutY="24.0" onAction="#cambiarVistaRegistro" style="-fx-background-color: #2d3e50;" text="MI POSTULACIÓN" textFill="WHITE">
+    <Button layoutX="134.0" layoutY="24.0" onAction="#verMiPostulacion" style="-fx-background-color: #2d3e50;" text="MI POSTULACIÓN" textFill="WHITE">
         <font>
             <Font name="Arial Rounded MT Bold" size="13.0" />
         </font>
     </Button>
-    <AnchorPane layoutX="-4.0" layoutY="74.0" prefHeight="395.0" prefWidth="505.0" style="-fx-background-color: #2a80b9;">
+    <AnchorPane layoutX="-4.0" layoutY="74.0" prefHeight="395.0" prefWidth="566.0" style="-fx-background-color: #2a80b9;">
         <children>
-            <Label layoutX="164.0" layoutY="14.0" text="SUBIR DOCUMENTOS" textFill="WHITE">
+            <Label layoutX="213.0" layoutY="14.0" text="SUBIR DOCUMENTOS" textFill="WHITE">
                 <font>
                     <Font name="System Bold" size="20.0" />
                 </font>
             </Label>
-            <Button layoutX="217.0" layoutY="318.0" onAction="#cambiarVistaRegistro" style="-fx-background-color: #2d3e50;" text="Enviar Datos" textFill="WHITE">
+            <Button fx:id="botonEnviarDatos" layoutX="234.0" layoutY="317.0" onAction="#enviarDatos" style="-fx-background-color: #2d3e50;" text="Enviar Datos" textFill="WHITE">
                 <font>
                     <Font name="Arial Rounded MT Bold" size="13.0" />
                 </font>
             </Button>
-            <Label layoutX="76.0" layoutY="79.0" text="Carnet de Identidad:" textFill="WHITE">
+            <Label layoutX="106.0" layoutY="79.0" text="Carnet de Identidad:" textFill="WHITE">
                 <font>
                     <Font name="Arial Rounded MT Bold" size="13.0" />
                 </font>
             </Label>
-         <Label layoutX="77.0" layoutY="132.0" text="Diploma Bachiller:" textFill="WHITE">
+         <Label layoutX="107.0" layoutY="132.0" text="Diploma Bachiller:" textFill="WHITE">
             <font>
                <Font name="Arial Rounded MT Bold" size="13.0" />
             </font>
          </Label>
-         <Label layoutX="77.0" layoutY="191.0" text="Certificado de Nacimiento:" textFill="WHITE">
+         <Label layoutX="107.0" layoutY="191.0" text="Certificado de Nacimiento:" textFill="WHITE">
             <font>
                <Font name="Arial Rounded MT Bold" size="13.0" />
             </font>
          </Label>
-         <Label layoutX="74.0" layoutY="254.0" text="Certificado de Nacimiento:" textFill="WHITE">
+         <Label layoutX="104.0" layoutY="254.0" text="Fotografía:" textFill="WHITE">
             <font>
                <Font name="Arial Rounded MT Bold" size="13.0" />
             </font>
          </Label>
-         <Button layoutX="297.0" layoutY="75.0" onAction="#cambiarVistaRegistro" style="-fx-background-color: #0ba9d9;" text="Seleccionar Archivo" textFill="WHITE">
+         <Button fx:id="botonSubirCi" layoutX="327.0" layoutY="75.0" onAction="#subirCi" style="-fx-background-color: #0ba9d9;" text="Seleccionar Archivo" textFill="WHITE">
             <font>
                <Font name="Arial Rounded MT Bold" size="13.0" />
             </font>
          </Button>
-         <Button layoutX="297.0" layoutY="128.0" onAction="#cambiarVistaRegistro" style="-fx-background-color: #0ba9d9;" text="Seleccionar Archivo" textFill="WHITE">
+         <Button fx:id="botonSubirDiploma" layoutX="327.0" layoutY="128.0" onAction="#subirDiploma" style="-fx-background-color: #0ba9d9;" text="Seleccionar Archivo" textFill="WHITE">
             <font>
                <Font name="Arial Rounded MT Bold" size="13.0" />
             </font>
          </Button>
-         <Button layoutX="297.0" layoutY="187.0" onAction="#cambiarVistaRegistro" style="-fx-background-color: #0ba9d9;" text="Seleccionar Archivo" textFill="WHITE">
+         <Button fx:id="botonSubirCertificadoNacimiento" layoutX="327.0" layoutY="187.0" onAction="#subirCertificadoNacimiento" style="-fx-background-color: #0ba9d9;" text="Seleccionar Archivo" textFill="WHITE">
             <font>
                <Font name="Arial Rounded MT Bold" size="13.0" />
             </font>
          </Button>
-         <Button layoutX="297.0" layoutY="250.0" onAction="#cambiarVistaRegistro" style="-fx-background-color: #0ba9d9;" text="Seleccionar Archivo" textFill="WHITE">
+         <Button fx:id="botonSubirFotografía" layoutX="327.0" layoutY="250.0" onAction="#subirFotografía" style="-fx-background-color: #0ba9d9;" text="Seleccionar Archivo" textFill="WHITE">
             <font>
                <Font name="Arial Rounded MT Bold" size="13.0" />
             </font>
          </Button>
         </children>
     </AnchorPane>
+   <Button layoutX="369.0" layoutY="24.0" onAction="#verMiPerfil" style="-fx-background-color: #2d3e50;" text="MI PERFIL" textFill="WHITE">
+      <font>
+         <Font name="Arial Rounded MT Bold" size="13.0" />
+      </font>
+   </Button>
 </AnchorPane>

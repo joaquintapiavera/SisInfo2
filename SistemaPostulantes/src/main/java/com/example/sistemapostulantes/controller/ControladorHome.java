@@ -9,6 +9,6 @@ import javafx.scene.control.Button;
 public class ControladorHome extends ControladorBarraSuperior {
     @FXML
     private void postular(ActionEvent event) {
-        cambiarVista(Vistas.VISTA_DATOS_PERSONALES.getVista(), event);
+        cambiarVista(Vistas.VISTA_SUBIR_DOCUMENTOS.getVista(), event);
     }
 }

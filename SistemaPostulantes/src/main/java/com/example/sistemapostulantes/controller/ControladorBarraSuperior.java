@@ -20,8 +20,14 @@ public abstract class ControladorBarraSuperior implements CambiadorVista {
     public void verCarreras(ActionEvent event) {
         cambiarVista(Vistas.VISTA_LOGIN.getVista(), event);
     }
+
     @FXML
     public void verMiPostulacion(ActionEvent event) {
         cambiarVista(Vistas.VISTA_LOGIN.getVista(), event);
+    }
+
+    @FXML
+    public void verMiPerfil(ActionEvent event) {
+        cambiarVista(Vistas.VISTA_DATOS_PERSONALES.getVista(), event);
     }
 }

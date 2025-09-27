@@ -41,3 +41,16 @@ CREATE TABLE Pago(
     id_monto DECIMAL(7,2) NOT NULL,
     fecha_pago DATE NOT NULL
 );
+
+CREATE TABLE carreras (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    facultad VARCHAR(100) NOT NULL
+);
+
+INSERT INTO carreras (nombre, facultad) VALUES
+('Ingeniería de Sistemas', 'Facultad de Ciencias y Tecnología'),
+('Medicina', 'Facultad de Medicina'),
+('Derecho', 'Facultad de Ciencias Jurídicas'),
+('Arquitectura', 'Facultad de Arquitectura y Urbanismo');
+

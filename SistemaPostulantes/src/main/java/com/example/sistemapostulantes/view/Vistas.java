@@ -3,7 +3,8 @@ package com.example.sistemapostulantes.view;
 public enum Vistas {
     VISTA_REGISTRO("registro.fxml"),
     VISTA_LOGIN("login.fxml"),
-    HOME("home.fxml");
+    VISTA_HOME("home.fxml");
+
 
     private String fxml;
 

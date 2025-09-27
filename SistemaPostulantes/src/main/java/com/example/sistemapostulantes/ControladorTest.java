@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class HelloController {
+public class ControladorTest {
 
     @FXML
     private TextField nombreField, correoField, direccionField, telefonoField;

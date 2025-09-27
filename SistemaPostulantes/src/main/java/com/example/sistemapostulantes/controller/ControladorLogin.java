@@ -10,9 +10,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.util.Optional;
 
 public class ControladorLogin implements CambiadorVista {
 
@@ -31,7 +34,15 @@ public class ControladorLogin implements CambiadorVista {
         try {
             Estudiante estudiante = EstudianteDAO.obtenerPorCI(ci.getText());
             if (estudiante != null && estudiante.getContrasenia().equals(contrasenia.getText())) {
-                mostrarAlerta(Alert.AlertType.INFORMATION, "Login Correcto", "Bienvenido " + estudiante.getNombre());
+                Optional<ButtonType> resultado = mostrarAlerta(
+                        Alert.AlertType.INFORMATION,
+                        "Login Correcto",
+                        "Bienvenido " + estudiante.getNombre()
+                );
+
+                if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+                    cambiarVista(Vistas.VISTA_HOME.getVista(), event);
+                }
             } else {
                 mostrarAlerta(Alert.AlertType.ERROR, "Login Incorrecto", "Usuario o contraseña incorrectos.");
             }
@@ -45,12 +56,12 @@ public class ControladorLogin implements CambiadorVista {
         return !ci.getText().isEmpty() && !contrasenia.getText().isEmpty();
     }
 
-    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
+    private Optional<ButtonType> mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alerta = new Alert(tipo);
         alerta.setTitle(titulo);
         alerta.setHeaderText(null);
         alerta.setContentText(mensaje);
-        alerta.showAndWait();
+        return alerta.showAndWait();
     }
 
     @FXML

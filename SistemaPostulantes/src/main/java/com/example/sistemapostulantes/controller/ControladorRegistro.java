@@ -14,7 +14,6 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class ControladorRegistro implements CambiadorVista {
-
     @FXML private TextField nombreField;
     @FXML private TextField ciField;
     @FXML private TextField correoField;
@@ -23,17 +22,14 @@ public class ControladorRegistro implements CambiadorVista {
     @FXML private PasswordField contraseniaField;
 
     private static final PseudoClass INVALID = PseudoClass.getPseudoClass("invalid");
-
     private static final Pattern SOLO_LETRAS = Pattern.compile("^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,60}$");
     private static final Pattern SOLO_DIGITOS = Pattern.compile("^\\d+$");
     private static final Pattern EMAIL = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
 
     @FXML
     public void initialize() {
-
         ciField.setTextFormatter(onlyDigitsMaxLen(12));
         telefonoField.setTextFormatter(onlyDigitsMaxLen(8));
-
         addClearInvalidOnEdit(nombreField, ciField, correoField, direccionField, telefonoField, contraseniaField);
     }
 
@@ -97,15 +93,13 @@ public class ControladorRegistro implements CambiadorVista {
         }
 
         try {
-            int idCarrera = 1;
-
-            Estudiante est = new Estudiante(
-                    nombre, ci, correo, direccion, telefono, idCarrera, contrasenia
-            );
+            int idCarrera = 1; // Puedes reemplazar con selección real desde la GUI
+            Estudiante est = new Estudiante(nombre, ci, correo, direccion, telefono, idCarrera, contrasenia);
 
             EstudianteCRUD.crearEstudiante(est);
             mostrarAlerta(Alert.AlertType.INFORMATION, "Registro exitoso", "Tu cuenta fue creada correctamente.");
 
+            cambiarVista(Vistas.VISTA_LOGIN.getVista(), event);
 
         } catch (Exception e) {
             mostrarAlerta(Alert.AlertType.ERROR, "Fallo en el Registro", "No se pudo registrar.");
@@ -130,6 +124,7 @@ public class ControladorRegistro implements CambiadorVista {
         alerta.showAndWait();
     }
 }
+
 
 
 

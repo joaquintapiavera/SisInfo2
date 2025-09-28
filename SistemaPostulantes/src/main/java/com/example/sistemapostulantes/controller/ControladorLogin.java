@@ -2,6 +2,7 @@ package com.example.sistemapostulantes.controller;
 
 import com.example.sistemapostulantes.model.Estudiante;
 import com.example.sistemapostulantes.model.EstudianteDAO;
+import com.example.sistemapostulantes.model.Sesion;
 import com.example.sistemapostulantes.view.CambiadorVista;
 import com.example.sistemapostulantes.view.Vistas;
 import javafx.event.ActionEvent;
@@ -9,21 +10,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.util.Optional;
 
 public class ControladorLogin implements CambiadorVista {
-
-    @FXML
-    private TextField ci;
-
-    @FXML
-    private PasswordField contrasenia;
+    @FXML private TextField ci;
+    @FXML private PasswordField contrasenia;
 
     @FXML
     private void iniciarSesion(ActionEvent event) {
@@ -31,9 +25,14 @@ public class ControladorLogin implements CambiadorVista {
             mostrarAlerta(Alert.AlertType.WARNING, "Campos vacíos", "Por favor ingresa tu CI y contraseña.");
             return;
         }
+
         try {
             Estudiante estudiante = EstudianteDAO.obtenerPorCI(ci.getText());
+
             if (estudiante != null && estudiante.getContrasenia().equals(contrasenia.getText())) {
+                // 🔹 Guardamos el estudiante en sesión
+                Sesion.setEstudianteActual(estudiante);
+
                 Optional<ButtonType> resultado = mostrarAlerta(
                         Alert.AlertType.INFORMATION,
                         "Login Correcto",
@@ -46,6 +45,7 @@ public class ControladorLogin implements CambiadorVista {
             } else {
                 mostrarAlerta(Alert.AlertType.ERROR, "Login Incorrecto", "Usuario o contraseña incorrectos.");
             }
+
         } catch (Exception e) {
             mostrarAlerta(Alert.AlertType.ERROR, "Error", "Ocurrió un error al iniciar sesión: " + e.getMessage());
             e.printStackTrace();
@@ -84,4 +84,6 @@ public class ControladorLogin implements CambiadorVista {
         }
     }
 }
+
+
 

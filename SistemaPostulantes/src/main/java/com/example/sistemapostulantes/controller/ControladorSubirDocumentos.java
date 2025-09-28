@@ -1,32 +1,228 @@
-package com.example.sistemapostulantes.controller;
+/*package com.example.sistemapostulantes.controller;
 
+import com.example.sistemapostulantes.model.DocumentosCRUD;
+import com.example.sistemapostulantes.model.Sesion;
 import com.example.sistemapostulantes.view.Vistas;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.stage.FileChooser;
 
-public class ControladorSubirDocumentos extends ControladorBarraSuperior{
+import java.io.File;
+
+public class ControladorSubirDocumentos extends ControladorBarraSuperior {
+
+    private FileChooser fileChooser = new FileChooser();
+
+    private File ciFile;
+    private File diplomaFile;
+    private File fotoFile;
+    private File certNacFile;
+
     @FXML
     private void enviarDatos(ActionEvent event) {
-        cambiarVista(Vistas.VISTA_DATOS_PERSONALES.getVista(), event);
+        try {
+            int idUsuario = Sesion.getIdEstudiante(); // lanza excepción si no hay sesión activa
+
+            DocumentosCRUD.guardarDocumentos(
+                    idUsuario,
+                    ciFile, diplomaFile, fotoFile, certNacFile
+            );
+
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Todos los documentos fueron guardados correctamente.");
+            cambiarVista(Vistas.VISTA_DATOS_PERSONALES.getVista(), event);
+
+        } catch (IllegalStateException e) {
+            
+            mostrarAlerta(Alert.AlertType.ERROR, "Error de sesión", e.getMessage());
+
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudieron guardar los documentos: " + e.getMessage());
+        }
     }
 
     @FXML
     private void subirCi(ActionEvent event) {
-        cambiarVista(Vistas.VISTA_DATOS_PERSONALES.getVista(), event);
+        ciFile = seleccionarArchivo("CI");
     }
 
     @FXML
     private void subirDiploma(ActionEvent event) {
-        cambiarVista(Vistas.VISTA_DATOS_PERSONALES.getVista(), event);
-    }
-
-    @FXML
-    private void subirCertificadoNacimiento(ActionEvent event) {
-        cambiarVista(Vistas.VISTA_DATOS_PERSONALES.getVista(), event);
+        diplomaFile = seleccionarArchivo("Diploma");
     }
 
     @FXML
     private void subirFotografía(ActionEvent event) {
-        cambiarVista(Vistas.VISTA_DATOS_PERSONALES.getVista(), event);
+        fotoFile = seleccionarArchivo("Fotografía");
+    }
+
+    @FXML
+    private void subirCertificadoNacimiento(ActionEvent event) {
+        certNacFile = seleccionarArchivo("Certificado de Nacimiento");
+    }
+
+    private File seleccionarArchivo(String tipo) {
+        try {
+            fileChooser.getExtensionFilters().clear();
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Archivos PDF", "*.pdf"),
+                    new FileChooser.ExtensionFilter("Imágenes", "*.jpg", "*.jpeg", "*.png")
+            );
+
+            File file = fileChooser.showOpenDialog(null);
+            if (file != null) {
+                mostrarAlerta(Alert.AlertType.INFORMATION, "Archivo seleccionado", tipo + " cargado correctamente.");
+            }
+            return file;
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo seleccionar el archivo: " + tipo);
+            return null;
+        }
+    }
+
+    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
+    }
+}
+*/
+package com.example.sistemapostulantes.controller;
+
+import com.example.sistemapostulantes.model.DocumentosCRUD;
+import com.example.sistemapostulantes.model.Sesion;
+import com.example.sistemapostulantes.view.Vistas;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.stage.FileChooser;
+
+import java.io.File;
+
+public class ControladorSubirDocumentos extends ControladorBarraSuperior {
+
+    private FileChooser fileChooser = new FileChooser();
+
+    private File ciFile;
+    private File diplomaFile;
+    private File fotoFile;
+    private File certNacFile;
+
+    // -------------------- SUBIR DOCUMENTOS --------------------
+    @FXML
+    private void enviarDatos(ActionEvent event) {
+        try {
+            int idEstudiante = Sesion.getIdEstudiante();
+            if (idEstudiante == -1) {
+                mostrarAlerta(Alert.AlertType.ERROR, "Error", "No hay un estudiante en sesión. Inicie sesión primero.");
+                return;
+            }
+
+            DocumentosCRUD.guardarDocumentos(
+                    idEstudiante,
+                    ciFile, diplomaFile, fotoFile, certNacFile
+            );
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Todos los documentos fueron guardados correctamente.");
+            cambiarVista(Vistas.VISTA_DATOS_PERSONALES.getVista(), event);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudieron guardar los documentos: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void subirCi(ActionEvent event) {
+        ciFile = seleccionarArchivo("CI");
+    }
+
+    @FXML
+    private void subirDiploma(ActionEvent event) {
+        diplomaFile = seleccionarArchivo("Diploma");
+    }
+
+    @FXML
+    private void subirFotografía(ActionEvent event) {
+        fotoFile = seleccionarArchivo("Fotografía");
+    }
+
+    @FXML
+    private void subirCertificadoNacimiento(ActionEvent event) {
+        certNacFile = seleccionarArchivo("Certificado de Nacimiento");
+    }
+
+    // -------------------- DESCARGAR DOCUMENTOS --------------------
+    @FXML
+    private void descargarCi(ActionEvent event) {
+        descargarDocumento("ci_pdf", "ci.pdf");
+    }
+
+    @FXML
+    private void descargarDiploma(ActionEvent event) {
+        descargarDocumento("diploma_pdf", "diploma.pdf");
+    }
+
+    @FXML
+    private void descargarFotografia(ActionEvent event) {
+        descargarDocumento("fotografia_pdf", "foto.jpg");
+    }
+
+    @FXML
+    private void descargarCertificadoNacimiento(ActionEvent event) {
+        descargarDocumento("certificado_nacimiento_pdf", "certificado_nac.pdf");
+    }
+
+    private void descargarDocumento(String columna, String nombreArchivo) {
+        try {
+            int idEstudiante = Sesion.getIdEstudiante();
+            if (idEstudiante == -1) {
+                mostrarAlerta(Alert.AlertType.ERROR, "Error", "No hay un estudiante en sesión.");
+                return;
+            }
+
+            boolean exito = DocumentosCRUD.descargarDocumento(idEstudiante, columna, nombreArchivo);
+            if (exito) {
+                mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", nombreArchivo + " descargado correctamente.");
+            } else {
+                mostrarAlerta(Alert.AlertType.WARNING, "Atención", "No se encontró el documento en la base de datos.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo descargar el documento: " + e.getMessage());
+        }
+    }
+
+    // -------------------- UTILIDADES --------------------
+    private File seleccionarArchivo(String tipo) {
+        try {
+            fileChooser.getExtensionFilters().clear();
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Archivos PDF", "*.pdf"),
+                    new FileChooser.ExtensionFilter("Imágenes", "*.jpg", "*.jpeg", "*.png")
+            );
+
+            File file = fileChooser.showOpenDialog(null);
+            if (file != null) {
+                mostrarAlerta(Alert.AlertType.INFORMATION, "Archivo seleccionado", tipo + " cargado correctamente.");
+            }
+            return file;
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo seleccionar el archivo: " + tipo);
+            return null;
+        }
+    }
+
+    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
     }
 }

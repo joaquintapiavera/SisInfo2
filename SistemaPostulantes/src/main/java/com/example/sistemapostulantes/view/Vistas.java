@@ -18,3 +18,4 @@ public enum Vistas {
         return fxml;
     }
 }
+

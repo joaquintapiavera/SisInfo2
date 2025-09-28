@@ -20,6 +20,7 @@ public class EstudianteDAO {
 
             if (rs.next()) {
                 estudiante = new Estudiante(
+                        rs.getInt("id_usuario"),
                         rs.getString("nombre"),
                         rs.getString("ci"),
                         rs.getString("correo"),

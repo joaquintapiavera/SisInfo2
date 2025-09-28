@@ -54,3 +54,14 @@ INSERT INTO carreras (nombre, facultad) VALUES
 ('Derecho', 'Facultad de Ciencias Jurídicas'),
 ('Arquitectura', 'Facultad de Arquitectura y Urbanismo');
 
+CREATE TABLE documentos (
+    id_documento INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    ci_pdf LONGBLOB,
+    diploma_pdf LONGBLOB,
+    fotografia_pdf LONGBLOB,
+    certificado_nacimiento_pdf LONGBLOB,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);

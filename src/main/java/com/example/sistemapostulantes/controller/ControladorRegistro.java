@@ -20,7 +20,7 @@ public class ControladorRegistro implements CambiadorVista {
     @FXML private TextField correoField;
     @FXML private TextField direccionField;
     @FXML private TextField telefonoField;
-    @FXML private PasswordField contraseniaField; // en tu FXML es PasswordField
+    @FXML private PasswordField contraseniaField;
 
     private static final PseudoClass INVALID = PseudoClass.getPseudoClass("invalid");
 

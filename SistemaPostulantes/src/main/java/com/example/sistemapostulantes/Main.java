@@ -1,5 +1,6 @@
 package com.example.sistemapostulantes;
 
+import com.example.sistemapostulantes.model.ServidorPagos;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

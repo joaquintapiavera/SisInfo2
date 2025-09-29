@@ -33,7 +33,7 @@ public class ControladorPostulacion extends ControladorBarraSuperior{
                 cambiarVista(Vistas.VISTA_PAGO_QR.getVista(), event);
                 break;
             case "Tarjeta":
-                System.out.println("Pago con Tarjeta");
+                cambiarVista(Vistas.VISTA_PAGO_TARJETA.getVista(), event);
 
                 break;
             default:

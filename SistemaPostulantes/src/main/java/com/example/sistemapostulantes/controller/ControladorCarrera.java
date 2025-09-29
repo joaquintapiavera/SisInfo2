@@ -115,7 +115,7 @@ public class ControladorCarrera extends ControladorBarraSuperior {
     }
 
     public static class CarreraVM {
-        private final int id;               // mantenemos id internamente por si lo necesitas
+        private final int id;              
         private final String codigo;
         private final String nombre;
         private final String facultad;

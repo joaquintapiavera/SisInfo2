@@ -1,8 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml">
-    <Label text="¡Esta es la ventana de Carreras!" layoutX="50" layoutY="50"/>
-</AnchorPane>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.sistemapostulantes.controller.ControladorCarrera"
+            stylesheets="@styles.css">
 
+    <top>
+        <HBox spacing="12" styleClass="topbar">
+            <padding><Insets topRightBottomLeft="16"/></padding>
+
+            <Label text="Carreras" styleClass="title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="txtBuscar"
+                       promptText="Buscar por nombre, código, facultad o tipo..."
+                       onKeyReleased="#onBuscar"
+                       prefWidth="340"/>
+            <Button text="Volver" onAction="#volver"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="10">
+            <padding><Insets topRightBottomLeft="16"/></padding>
+
+            <TableView fx:id="tblCarreras" prefHeight="480">
+                <columns>
+                    <TableColumn fx:id="colCodigo"   text="Código"    prefWidth="110"/>
+                    <TableColumn fx:id="colNombre"   text="Nombre de la carrera" prefWidth="360"/>
+                    <TableColumn fx:id="colFacultad" text="Facultad"  prefWidth="300"/>
+                    <TableColumn fx:id="colTipo"     text="Tipo"      prefWidth="120"/>
+                </columns>
+            </TableView>
+
+
+            <HBox spacing="8">
+                <Button text="Ver detalle" onAction="#verDetalle"/>
+                <Button text="Actualizar" onAction="#cargarCarreras"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="lblTotal" text="0 resultados"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

@@ -44,6 +44,11 @@
          <Font name="Arial Rounded MT Bold" size="18.0" />
       </font>
    </Button>
+    <Button layoutX="270.0" layoutY="38.0" onAction="#abrirCalendario" style="-fx-background-color: #2D63AE;" text="CALENDARIO" textFill="WHITE">
+        <font>
+            <Font name="Arial Rounded MT Bold" size="13.0" />
+        </font>
+    </Button>
    <Label layoutX="137.0" layoutY="559.0" text="¿Qué esperas para unirte a nuestra comunidad de estudiantes?" textFill="WHITE">
       <font>
          <Font name="System Bold" size="12.0" />

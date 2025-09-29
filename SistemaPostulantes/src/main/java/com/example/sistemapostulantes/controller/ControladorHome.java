@@ -11,4 +11,10 @@ public class ControladorHome extends ControladorBarraSuperior {
     private void postular(ActionEvent event) {
         cambiarVista(Vistas.VISTA_SUBIR_DOCUMENTOS.getVista(), event);
     }
+
+    @FXML
+    private void irCarreras(ActionEvent event) {
+        cambiarVista(Vistas.VISTA_CARRERAS.getVista(), event);
+    }
+    
 }

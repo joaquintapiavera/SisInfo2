@@ -8,9 +8,9 @@ public class ConexionBaseDatos {
 
 
     private static final String URL =
-            "jdbc:mysql://mysql-sisinfo2.d.aivencloud.com:11329/Postulantes?sslMode=REQUIRED&serverTimezone=UTC";
-    private static final String USUARIO = "avnadmin";
-    private static final String CONTRASENIA = "AVNS_l0YRyO-laQz0uaAmDF2";
+            "jdbc:mysql://aiven:AVNS_vCEsPI01PAqiYXKiTbl@mysql-sisinfo2.d.aivencloud.com:11329/Postulantes?ssl-mode=REQUIRED";
+    private static final String USUARIO = "aiven";
+    private static final String CONTRASENIA = "AVNS_vCEsPI01PAqiYXKiTbl";
 
     public static Connection getConexion() throws SQLException {
         try {

@@ -6,7 +6,7 @@ public class EstudianteCRUD {
 
     
     public static void crearEstudiante(Estudiante est) throws SQLException {
-        String sql = "INSERT INTO Estudiante (nombre, ci, correo, direccion, telefono, id_carrera, contrasenia) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Usuario (nombre, ci, correo, direccion, telefono, id_carrera, contrasenia) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = ConexionBaseDatos.getConexion();
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {

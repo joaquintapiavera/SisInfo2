@@ -8,8 +8,9 @@ public enum Vistas {
     VISTA_SUBIR_DOCUMENTOS("vista-subir-documentos.fxml"),
     VISTA_CARRERAS("carreras.fxml"),
     VISTA_MI_POSTULACION("mi-postulacion.fxml"),
-    VISTA_PAGO_QR("pago-QR.fxml");
-
+    VISTA_PAGO_QR("pago-QR.fxml"),
+    VISTA_PAGO_TARJETA("pago.fxml");
+    
     private final String fxml;
 
     Vistas(String fxml) {

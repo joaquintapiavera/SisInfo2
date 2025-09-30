@@ -14,17 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Controlador para mostrar el comprobante.
- *
- * Uso adicional desde la UI de pago:
- *   // antes de abrir el comprobante:
- *   ControladorComprobante.setMetodoSeleccionado("QR");   // o "Tarjeta"
- *
- * Con esto, si no hay BD o no existe registro, el comprobante usará
- * un ID fijo (SIM-PAGO-0001), la fecha actual, un monto fijo y
- * el método seleccionado.
- */
 public class ControladorComprobante {
 
     @FXML private Label lblNombre;
@@ -35,85 +24,55 @@ public class ControladorComprobante {
     @FXML private Label lblMonto;
     @FXML private Label lblMetodo;
 
-    // Monto por defecto si no hay registro en BD
-    private static final double MONTO_FIJO = 200.0;
-
-    // ID de pago fijo (no depende del estudiante)
-    private static final String PAGO_SIMULADO_ID = "SIM-PAGO-0001";
-
-    // Valor que debe establecerse desde el flujo de pago antes de abrir el comprobante.
-    // Ejemplo: ControladorComprobante.setMetodoSeleccionado("QR");
-    private static String metodoSeleccionado = null;
-
-    // Setter que debe usar el flujo de pago (QR / Tarjeta)
-    public static void setMetodoSeleccionado(String metodo) {
-        metodoSeleccionado = metodo;
-    }
-
     @FXML
     public void initialize() {
         try {
             Estudiante e = Sesion.getEstudianteActual();
-
-            // Mostrar datos del usuario logueado siempre que estén disponibles
             lblNombre.setText(e.getNombre() != null ? e.getNombre() : "-");
             lblCI.setText(e.getCi() != null ? e.getCi() : "-");
             lblCorreo.setText(e.getCorreo() != null ? e.getCorreo() : "-");
 
-            boolean pagoEncontrado = false;
-
             try (Connection conn = ConexionBaseDatos.getConexion()) {
-                // Intentamos leer el último pago del estudiante (esquema metodos_pago)
-                String sql = "SELECT * FROM metodos_pago.Pagos WHERE idEstudiante = ? ORDER BY fecha_pago DESC LIMIT 1";
+                String sql = "SELECT * FROM Pago WHERE id_usuario = ? ORDER BY fecha_pago DESC LIMIT 1";
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
                     ps.setInt(1, e.getId());
                     try (ResultSet rs = ps.executeQuery()) {
                         if (rs.next()) {
-                            // Si hay registro en BD, usar esos datos
-                            lblIdPago.setText(String.valueOf(rs.getInt("idPagos")));
+                            lblIdPago.setText(String.valueOf(rs.getInt("id_pago")));
                             java.sql.Date fecha = rs.getDate("fecha_pago");
-                            lblFechaPago.setText(fecha != null ? fecha.toString() : java.time.LocalDate.now().toString());
-                            lblMonto.setText(String.valueOf(rs.getDouble("Montos")));
+                            lblFechaPago.setText(fecha != null ? fecha.toString() : "-");
 
-                            // Consultar nombre del método en catálogo
+                            // 👇 corregido: el campo es "monto", no "id_monto"
+                            lblMonto.setText(rs.getString("monto"));
+
                             String metodo = "-";
                             try (PreparedStatement ps2 = conn.prepareStatement(
-                                    "SELECT nombre FROM metodos_pago.MetodosPago WHERE idCancelar = ?")) {
-                                int idMetodo = rs.getInt("idCancelar");
+                                    "SELECT nombre_metodo FROM MetodosPago WHERE id_metodo = ?")) {
+                                int idMetodo = rs.getInt("id_metodo");
                                 ps2.setInt(1, idMetodo);
                                 try (ResultSet rs2 = ps2.executeQuery()) {
-                                    if (rs2.next()) metodo = rs2.getString("nombre");
+                                    if (rs2.next()) metodo = rs2.getString(1);
                                 }
                             } catch (Exception ex) {
-                                // Si algo falla, mostramos el id del método
-                                metodo = "ID:" + rs.getInt("idCancelar");
+                                metodo = "ID:" + rs.getInt("id_metodo");
                             }
                             lblMetodo.setText(metodo);
-
-                            pagoEncontrado = true;
+                        } else {
+                            lblIdPago.setText("(sin pagos registrados)");
+                            lblFechaPago.setText("-");
+                            lblMonto.setText("-");
+                            lblMetodo.setText("-");
                         }
                     }
                 }
             } catch (SQLException ex) {
-                // No mostramos "no se pudo conectar". En su lugar, iremos al modo fallback.
-                System.err.println("⚠️ No se pudo leer pagos desde la BD (se usará modo offline simulad o): " + ex.getMessage());
-            }
-
-            // MODO FALLBACK: si no se halló pago en BD, mostramos datos simulados
-            if (!pagoEncontrado) {
-                // ID fijo de comprobante (no dependiente del estudiante)
-                lblIdPago.setText(PAGO_SIMULADO_ID);
-
-                // Fecha: hoy
-                lblFechaPago.setText(java.time.LocalDate.now().toString());
-
-                // Monto fijo
-                lblMonto.setText(String.valueOf(MONTO_FIJO));
-
+                lblIdPago.setText("(no se pudo conectar a la base de datos)");
+                lblFechaPago.setText("-");
+                lblMonto.setText("-");
+                lblMetodo.setText("-");
             }
 
         } catch (IllegalStateException ex) {
-            // Si no hay usuario en sesión, mostrar indicación amigable
             lblNombre.setText("-");
             lblCI.setText("-");
             lblCorreo.setText("-");
@@ -130,4 +89,6 @@ public class ControladorComprobante {
         stage.close();
     }
 }
+
+
 

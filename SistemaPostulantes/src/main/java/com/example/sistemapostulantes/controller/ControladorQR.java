@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.control.Alert;
 
 import java.awt.image.BufferedImage;
 import java.sql.Connection;
@@ -27,17 +28,14 @@ public class ControladorQR extends ControladorBarraSuperior {
     @FXML
     public void generarQR() {
         try {
-
             tokenPago = UUID.randomUUID().toString();
-
 
             Integer idEstudiante = null;
             try {
                 idEstudiante = Sesion.getIdEstudiante();
             } catch (Exception ex) {
-               ex.printStackTrace();
+                ex.printStackTrace();
             }
-
 
             try (Connection conn = ConexionBaseDatos.getConexion()) {
                 String sql = "INSERT INTO Pago (id_usuario, id_metodo, id_monto, fecha_pago, estado, token) VALUES (?, ?, ?, ?, 'pendiente', ?)";
@@ -47,14 +45,13 @@ public class ControladorQR extends ControladorBarraSuperior {
                     } else {
                         ps.setNull(1, java.sql.Types.INTEGER);
                     }
-                    ps.setInt(2, 1);
-                    ps.setDouble(3, 15.0);
+                    ps.setInt(2, 1); // Método de pago, por ejemplo 1 = tarjeta
+                    ps.setDouble(3, 15.0); // Monto fijo, cambia según necesites
                     ps.setDate(4, java.sql.Date.valueOf(LocalDate.now()));
                     ps.setString(5, tokenPago);
                     ps.executeUpdate();
                 }
             }
-
 
             String url = "http://localhost:4567/pagar/" + tokenPago;
 
@@ -79,6 +76,42 @@ public class ControladorQR extends ControladorBarraSuperior {
 
     @FXML
     public void verificarPago() {
+        if (tokenPago == null) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Aviso");
+            alerta.setHeaderText(null);
+            alerta.setContentText("No se ha generado ningún QR aún.");
+            alerta.showAndWait();
+            return;
+        }
 
+        try (Connection conn = ConexionBaseDatos.getConexion()) {
+            String sql = "SELECT estado FROM Pago WHERE token = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, tokenPago);
+                var rs = ps.executeQuery();
+                if (rs.next()) {
+                    String estado = rs.getString("estado");
+                    Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+                    alerta.setTitle("Estado del Pago");
+                    alerta.setHeaderText(null);
+                    alerta.setContentText("El pago está: " + estado);
+                    alerta.showAndWait();
+                } else {
+                    Alert alerta = new Alert(Alert.AlertType.ERROR);
+                    alerta.setTitle("Error");
+                    alerta.setHeaderText(null);
+                    alerta.setContentText("No se encontró el pago en la base de datos.");
+                    alerta.showAndWait();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Error");
+            alerta.setHeaderText(null);
+            alerta.setContentText("Ocurrió un error al verificar el pago.");
+            alerta.showAndWait();
+        }
     }
 }

@@ -42,5 +42,18 @@ public class ControladorPostulacion extends ControladorBarraSuperior{
         new Thread(() -> com.example.sistemapostulantes.model.ServidorPagos.iniciarServidor()).start();
 
     }
-
+    @FXML
+    public void verComprobante(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sistemapostulantes/comprobante.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Comprobante de Pago");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -19,6 +19,12 @@
             <Font name="Arial Rounded MT Bold" size="18.0" />
         </font>
     </Button>
+
+    <Button fx:id="botonVerComprobante" layoutX="387.0" layoutY="586.0" onAction="#verComprobante" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #28a745;" text="VER COMPROBANTE" textFill="WHITE">
+        <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+        </font>
+    </Button>
     <Label layoutX="53.0" layoutY="175.0" prefHeight="28.0" prefWidth="150.0" text="INFORMACIÓN:" textFill="#1da7e7">
         <font>
             <Font name="System Bold" size="19.0" />

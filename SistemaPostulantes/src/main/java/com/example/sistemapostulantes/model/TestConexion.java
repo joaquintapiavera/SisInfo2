@@ -7,6 +7,7 @@ public class TestConexion {
         try (Connection con = ConexionBaseDatos.getConexion()) {
             if (con != null && !con.isClosed()) {
                 System.out.println("✅ Conexión exitosa a la base de datos.");
+
             } else {
                 System.out.println("❌ No se pudo establecer la conexión.");
             }

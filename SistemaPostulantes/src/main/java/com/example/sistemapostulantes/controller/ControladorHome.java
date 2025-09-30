@@ -16,5 +16,10 @@ public class ControladorHome extends ControladorBarraSuperior {
     private void irCarreras(ActionEvent event) {
         cambiarVista(Vistas.VISTA_CARRERAS.getVista(), event);
     }
+
+    @FXML
+    private void irCalendario(ActionEvent event) {
+        cambiarVista(Vistas.VISTA_CALENDARIO.getVista(), event);
+    }
     
 }

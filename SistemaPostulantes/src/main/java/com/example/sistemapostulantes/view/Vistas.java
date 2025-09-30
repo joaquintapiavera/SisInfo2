@@ -9,7 +9,9 @@ public enum Vistas {
     VISTA_CARRERAS("carreras.fxml"),
     VISTA_MI_POSTULACION("mi-postulacion.fxml"),
     VISTA_PAGO_QR("pago-QR.fxml"),
-    VISTA_PAGO_TARJETA("pago.fxml");
+    VISTA_PAGO_TARJETA("pago.fxml"),
+    VISTA_COMPROBANTE("comprobante.fxml"),
+    VISTA_CALENDARIO("calendario.fxml");
     
     private final String fxml;
 
